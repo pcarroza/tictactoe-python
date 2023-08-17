@@ -7,12 +7,10 @@ from src.main.python.utils.closed_interval import ClosedInterval
 
 class Coordinate:
 
+    DIMENSION = 3
+
     def __init__(self, row=0, column=0):
         self.__coordinate = src.main.python.utils.coordinate.Coordinate(row, column)
-
-    @classmethod
-    def DIMENSION(cls):
-        return 2
 
     @property
     def coordinate(self):
@@ -28,31 +26,31 @@ class Coordinate:
 
     @row.setter
     def row(self, row):
-        assert ClosedInterval(1, self.DIMENSION()).included(row)
+        assert ClosedInterval(1, self.DIMENSION).included(row)
         self.coordinate.row = row
 
     @column.setter
     def column(self, column):
-        assert ClosedInterval(1, self.DIMENSION()).included(column)
+        assert ClosedInterval(1, self.DIMENSION).included(column)
         self.coordinate.column = column
 
     def clone(self):
         return Coordinate(self.row, self.column)
 
     def random(self):
-        self.coordinate.row = random.randint(1, self.DIMENSION())
-        self.coordinate.column = random.randint(1, self.DIMENSION())
+        self.coordinate.row = random.randint(1, self.DIMENSION)
+        self.coordinate.column = random.randint(1, self.DIMENSION)
 
-    def inDirection(self, target):
+    def in_direction(self, target):
         assert target is not None
         assert isinstance(target, Coordinate)
         direction = self.coordinate.direction(target.coordinate)
         if direction == Direction.NON_EXISTENT:
-            if self.inInverse() and target.inInverse():
-                return Direction.INVERSE
-        return direction
+            return Direction.NON_EXISTENT
+        if self.in_inverse() and target.in_inverse():
+            return Direction.INVERSE
 
-    def inInverse(self):
+    def in_inverse(self):
         return self.row + self.column == self.DIMENSION
 
     def __repr__(self):

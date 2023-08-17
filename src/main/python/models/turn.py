@@ -15,5 +15,5 @@ class Turn:
     def take(self):
         return Color.colors()[self.__value]
 
-    def change(self):
+    def change_to_next_player(self):
         self.__value = (self.__value + 1) % (len(Color.colors()))

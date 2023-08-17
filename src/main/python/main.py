@@ -1,9 +1,17 @@
+from python.tictactoe import TicTacToe
 
+class B:
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    def foo(self):
+        print("CLASE B")
+class A(B):
+
+    def foo(self):
+        super().foo()
+        print("IMPLEMENTACIÓN ")
 
 
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    clasea = A()
+
+    clasea.foo()

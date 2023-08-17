@@ -1,8 +1,8 @@
 class ClosedInterval:
 
-    def __init__(self, minimum: int, maximum: int):
-        self.__minimum = minimum
-        self.__maximum = maximum
+    def __init__(self, min: int, max: int):
+        self.__min = min
+        self.__max = max
 
     def included(self, value):
-        return self.__minimum <= value <= self.__maximum
+        return self.__min <= value <= self.__max

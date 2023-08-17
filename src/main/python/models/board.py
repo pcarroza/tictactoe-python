@@ -10,108 +10,75 @@ class Board(Subject):
 
     def __init__(self):
         super().__init__()
-        self.__flat: dict = {}
-        for color in Color.colors():
-            self.__flat[color] = set()
-        self.__turn = Turn()
+        self.flat: dict = {color: set() for color in Color.colors()}
+        self.turn = Turn()
 
     def get_flat(self):
-        return self.__flat
+        return self.flat
 
     def put(self, target: Coordinate) -> None:
         Board.require(target)
-        self.__flat.get(self.__turn.take()).add(target)
+        self.flat.get(self.turn.take()).add(target.clone())
         assert not self.is_empty(target)
 
     def remove(self, origin: Coordinate):
         Board.require(origin)
-        self.__flat.get(self.__turn.take()).remove(origin)
+        self.flat.get(self.turn.take()).remove(origin)
         assert self.is_empty(origin)
 
-    def get_color(self, coordinate: Coordinate) -> Color:
-        Board.require(coordinate)
-        color_ = Color.NONE
-        for color in self.__flat.keys():
-            if coordinate in self.__flat.get(color):
-                color_ = color
-        return color_
+    def get_color(self, target: Coordinate) -> Color:
+        Board.require(target)
+        return next((color for color in self.flat.keys() if target in self.flat[color]), Color.NONE)
 
     def is_empty(self, coordinate: Coordinate):
         Board.require(coordinate)
-        return coordinate not in self.__flat.get(Color.XS) and coordinate not in self.__flat.get(Color.OS)
+        return coordinate not in self.flat[Color.XS] and coordinate not in self.flat[Color.OS]
 
     def is_occupied_by_player(self, coordinate):
         Board.require(coordinate)
-        return coordinate in self.__flat.get(self.__turn.take())
+        return coordinate in self.flat[self.turn.take()]
 
     @classmethod
     def require(cls, coordinate):
         assert coordinate is not None
         assert isinstance(coordinate, Coordinate)
-        assert ClosedInterval(1, Coordinate.DIMENSION()).included(coordinate.row)
-        assert ClosedInterval(1, Coordinate.DIMENSION()).included(coordinate.column)
+        assert ClosedInterval(1, Coordinate.DIMENSION).included(coordinate.row)
+        assert ClosedInterval(1, Coordinate.DIMENSION).included(coordinate.column)
 
-    def change(self):
-        self.__turn.change()
+    def change_to_next_player(self):
+        self.turn.change_to_next_player()
 
     def take(self):
-        return self.__turn.take()
+        return self.turn.take()
 
     def current_player(self):
-        return self.__turn.current_player()
+        return self.turn.current_player()
 
     def clear(self):
-        for color in self.__flat.keys():
-            self.__flat.get(color).clear()
-        self.__turn.reset()
+        self.flat = {color: set() for color in self.flat.keys()}
+        self.turn.reset()
 
-    def empty_coordinate(self):
+    def get_empty_coordinate(self):
         return self.get_coordinates(lambda target: self.get_color(target) == Color.NONE)
 
-    def player_coordinate(self):
-        return self.get_coordinates(lambda target: self.get_color(target) == self.__turn.take())
+    def get_player_coordinate(self):
+        return self.get_coordinates(lambda target: self.get_color(target) == self.turn.take())
 
     @classmethod
     def get_coordinates(cls, is_equals_color):
-        coordinates = []
-        for row in range(1, Coordinate.DIMENSION() + 1):
-            for column in range(1, Coordinate.DIMENSION() + 1):
-                target = Coordinate(row, column)
-                if is_equals_color(target):
-                    coordinates.append(target)
-        return coordinates
+        return [Coordinate(row, column)
+                for row in range(1, Coordinate.DIMENSION() + 1)
+                for column in range(1, Coordinate.DIMENSION() + 1)
+                if is_equals_color(Coordinate(row, column))]
 
     def is_complete(self):
-        numbers_of_colors = 0
-        for color in self.__flat.keys():
-            numbers_of_colors += len(self.__flat.get(color))
-        return numbers_of_colors == Coordinate.DIMENSION() * len(self.__flat.keys())
+        numbers_of_colors = sum(len(self.flat[color]) for color in self.flat.keys())
+        return numbers_of_colors == Coordinate.DIMENSION * len(self.flat.keys())
 
     def is_exit_tictactoe(self):
-        coordinates = self.__flat.get(self.__turn.take())
-        if len(coordinates) != Coordinate.DIMENSION:
-            return False
-        coordinates_ = list(coordinates)
-        direction = coordinates_[0].inDirectoin(coordinates_[1])
-        if direction == Direction.NON_EXISTENT:
-            return False
-        for i in range(1, Coordinate.DIMENSION()):
-            if coordinates_[i].in_direction(coordinates_[i + 1]) != direction:
-                return False
-        return True
-
-
-if __name__ == '__main__':
-
-    board = Board()
-
-
-
-
-
-
-
-
-
-
-
+        coordinates = list(self.flat.get(self.turn.take()))
+        _: list[Coordinate] = list(coordinates)
+        return (
+            len(coordinates) == Coordinate.DIMENSION and
+            all(_[i].in_direction(_[i + 1]) == direction for i in range(1, Coordinate.DIMENSION - 1))
+            if (direction := _[0].in_direction(_[1])) != Direction.NON_EXISTENT else False)

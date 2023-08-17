@@ -1,9 +1,10 @@
+from python.models.observer import Observer
 from src.main.python.models.board import Board
 
 
 class Game:
 
-    def __init__(self, observer):
+    def __init__(self, observer: Observer):
         self.__board: Board = Board()
         self.__board.subscribe(observer)
 
@@ -32,7 +33,7 @@ class Game:
     def is_empty(self, coordinate):
         return self.__board.is_empty(coordinate)
 
-    def is_occupied_by_player(self, coordinate):
+    def is_occupied_current_by_player(self, coordinate):
         return self.__board.is_occupied_by_player(coordinate)
 
     def exist_tictactoe(self):
@@ -40,6 +41,12 @@ class Game:
 
     def is_complete(self):
         return self.__board.is_complete()
+
+    def get_empty_coordinate(self):
+        return self.__board.get_empty_coordinate()
+
+    def get_player_coordinate(self):
+        return self.__board.get_player_coordinate()
 
     def initialize(self):
         self.__board.initialize()
