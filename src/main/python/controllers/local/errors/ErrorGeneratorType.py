@@ -7,9 +7,6 @@ from python.controllers.local.errors.RepeatedCoordinateErrorReportGenerator impo
 
 
 class ErrorGeneratorType(Enum):
-
-    NOT_EMPTY = NotEmptyErrorReportGenerator()
-
     REPEATED_COORDINATE = RepeatedCoordinateErrorReportGenerator()
-
     NOT_PROPERTY = NotPropertyErrorReportGenerator()
+    NOT_EMPTY = NotEmptyErrorReportGenerator()

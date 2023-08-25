@@ -1,7 +1,7 @@
-from python.controllers.local.LocalContinueController import LocalContinueController
-from python.controllers.local.LocalRandomPlacementControllerBuilder import LocalRandomCoordinateControllerBuilder
-from python.controllers.local.LocalStartController import LocalStartController
+from python.controllers.local.LocalRandomPlacementControllerBuilder import LocalRandomPlacementControllerBuilder
 from python.controllers.local.LocalUserPlacementControllerBuilder import LocalUserPlacementControllerBuilder
+from python.controllers.local.LocalContinueController import LocalContinueController
+from python.controllers.local.LocalStartController import LocalStartController
 from python.utils.closed_interval import ClosedInterval
 
 
@@ -19,14 +19,18 @@ class LocalOperationControllerBuilder:
             if i < users:
                 self.builders.append(LocalUserPlacementControllerBuilder(self.game))
             else:
-                self.builders.append(LocalRandomCoordinateControllerBuilder(self.game))
+                self.builders.append(LocalRandomPlacementControllerBuilder(self.game))
             self.builders[i].build()
 
     def get_placement_controller(self):
+        assert self.builders is not None
+        assert self.builders[self.game.current_player()] is not None
         return self.builders[self.game.current_player()].get_placement_controller()
 
     def get_continue_controller(self):
+        assert self.local_continue_controller is not None
         return self.local_continue_controller
 
     def get_start_controller(self):
+        assert self.local_start_controller is not None
         return self.local_start_controller

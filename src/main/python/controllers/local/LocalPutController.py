@@ -1,7 +1,7 @@
 from python.controllers.local.LocalCoordinateController import LocalCoordinateController
 from python.controllers.local.LocalPlacementController import LocalPlacementController
-from python.models.coordinate import Coordinate
-from python.models.game import Game
+from python.models.Coordinate import Coordinate
+from python.models.Game import Game
 
 
 class LocalPutController(LocalPlacementController):

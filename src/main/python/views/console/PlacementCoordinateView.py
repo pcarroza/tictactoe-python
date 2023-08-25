@@ -1,5 +1,5 @@
 from python.controllers.CoordinateControllerVisitor import CoordinateControllerVisitor
-from python.models.coordinate import Coordinate
+from python.models.Coordinate import Coordinate
 
 
 class PlacementCoordinateView(CoordinateControllerVisitor):

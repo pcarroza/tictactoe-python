@@ -1,7 +1,7 @@
 import src.main.python.utils.coordinate
 import random
 
-from src.main.python.models.direction import Direction
+from src.main.python.models.Direction import Direction
 from src.main.python.utils.closed_interval import ClosedInterval
 
 
@@ -64,7 +64,8 @@ class Coordinate:
 
 
 if __name__ == '__main__':
-    coordinates = set()
-    coordinates.add(Coordinate(1, 1))
-    coordinates.add(Coordinate(1, 2))
-    coordinates.add(Coordinate(1, 3))
+
+    coordinate1 = Coordinate(1,2)
+    coordinate2 = Coordinate(1,2)
+
+    print(coordinate1 == coordinate2)

@@ -1,4 +1,4 @@
-from python.models.coordinate import Coordinate
+from python.models.Coordinate import Coordinate
 
 
 class ErrorReport:

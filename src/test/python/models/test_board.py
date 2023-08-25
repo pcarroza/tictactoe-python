@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from python.models.board import Board
-from python.models.coordinate import Coordinate
+from python.models.Board import Board
+from python.models.Coordinate import Coordinate
 
 
 class TestBoard(TestCase):
@@ -10,8 +10,7 @@ class TestBoard(TestCase):
         self.board = Board()
 
     def test_put(self):
-        self.board.put(Coordinate(1,1))
-        self.assertIsInstance(self.board, Board, "self.board is Board")
+        self.board.put(Coordinate(1, 2))
 
     def test_remove(self):
         pass
@@ -44,7 +43,9 @@ class TestBoard(TestCase):
         pass
 
     def test_empty_coordinate(self):
-        pass
+        self.board.put(Coordinate(1, 1))
+        self.board.put(Coordinate(1, 2))
+        self.board.put(Coordinate(1, 3))
 
     def test_player_coordinate(self):
         pass

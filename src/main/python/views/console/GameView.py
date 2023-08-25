@@ -1,13 +1,14 @@
 from python.controllers.PlacementControllerVisitor import PlacementControllerVisitor
-from python.controllers.local.errors.ErrorReport import ErrorReport
-from python.models.coordinate import Coordinate
-from python.views.console.BoardView import BoardView
-from python.views.console.ColorView import ColorView
-from python.views.console.ErrorReportView import ErrorReportView
+from python.controllers.local.LocalPlacementController import LocalPlacementController
 from python.views.console.MoveOriginCoordinateView import MoveOriginCoordinateView
 from python.views.console.MoveTargetCoordinateView import MoveTargetCoordinateView
 from python.views.console.PlacementCoordinateView import PlacementCoordinateView
 from python.views.console.PutTargetCoordinateView import PutTargetCoordinateView
+from python.controllers.local.errors.ErrorReport import ErrorReport
+from python.views.console.ErrorReportView import ErrorReportView
+from python.views.console.ColorView import ColorView
+from python.views.console.BoardView import BoardView
+from python.models.Coordinate import Coordinate
 
 
 class GameView(PlacementControllerVisitor):
@@ -18,7 +19,7 @@ class GameView(PlacementControllerVisitor):
         self.error_report_view = ErrorReportView()
         self.origin = None
 
-    def interact(self, placement_controller):
+    def interact(self, placement_controller: LocalPlacementController):
         placement_controller.accept(self)
 
     def visit_put_controller(self, put):
@@ -36,13 +37,13 @@ class GameView(PlacementControllerVisitor):
     def show_title(cls, title, color):
         ColorView.instance().write(title + ' el jugador ', color)
 
-    def put(self, put_controller, placement_view: PlacementCoordinateView):
+    def put(self, put, placement_view: PlacementCoordinateView):
         target: Coordinate = placement_view.get_coordinate()
-        error_report: ErrorReport = put_controller.validateTarget(target)
+        error_report: ErrorReport = put.validateTarget(target)
         if error_report is not None:
             self.error_report_view.write(error_report)
-            self.put(put_controller, placement_view)
-        put_controller.put(target)
+            self.put(put, placement_view)
+        put.put(target)
 
     def remove(self, move, placement_view):
         self.origin = placement_view.get_coordinate()

@@ -1,9 +1,9 @@
-from python.tictactoe import TicTacToe
-
 class B:
 
     def foo(self):
         print("CLASE B")
+
+
 class A(B):
 
     def foo(self):
@@ -12,6 +12,5 @@ class A(B):
 
 
 if __name__ == '__main__':
-    clasea = A()
-
-    clasea.foo()
+    clase = A()
+    clase.foo()

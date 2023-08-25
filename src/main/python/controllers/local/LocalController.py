@@ -1,5 +1,5 @@
-from src.main.python.models.coordinate import Coordinate
-from src.main.python.models.game import Game
+from src.main.python.models.Coordinate import Coordinate
+from src.main.python.models.Game import Game
 
 
 class LocalController:

@@ -1,6 +1,6 @@
 from python.controllers.CoordinateController import CoordinateController
 from python.controllers.local.LocalController import LocalController
-from python.models.game import Game
+from python.models.Game import Game
 
 
 class LocalCoordinateController(LocalController, CoordinateController):

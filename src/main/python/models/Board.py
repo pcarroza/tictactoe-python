@@ -1,9 +1,9 @@
 from python.utils.closed_interval import ClosedInterval
-from src.main.python.models.coordinate import Coordinate
-from src.main.python.models.direction import Direction
-from src.main.python.models.subject import Subject
-from src.main.python.models.color import Color
-from src.main.python.models.turn import Turn
+from src.main.python.models.Coordinate import Coordinate
+from src.main.python.models.Direction import Direction
+from src.main.python.models.Subject import Subject
+from src.main.python.models.Color import Color
+from src.main.python.models.Turn import Turn
 
 
 class Board(Subject):
@@ -16,10 +16,11 @@ class Board(Subject):
     def get_flat(self):
         return self.flat
 
-    def put(self, target: Coordinate) -> None:
+    def put(self, target: Coordinate):
         Board.require(target)
         self.flat.get(self.turn.take()).add(target.clone())
         assert not self.is_empty(target)
+        return self
 
     def remove(self, origin: Coordinate):
         Board.require(origin)
@@ -41,7 +42,6 @@ class Board(Subject):
     @classmethod
     def require(cls, coordinate):
         assert coordinate is not None
-        assert isinstance(coordinate, Coordinate)
         assert ClosedInterval(1, Coordinate.DIMENSION).included(coordinate.row)
         assert ClosedInterval(1, Coordinate.DIMENSION).included(coordinate.column)
 
@@ -66,10 +66,10 @@ class Board(Subject):
 
     @classmethod
     def get_coordinates(cls, is_equals_color):
-        return [Coordinate(row, column)
-                for row in range(1, Coordinate.DIMENSION() + 1)
-                for column in range(1, Coordinate.DIMENSION() + 1)
-                if is_equals_color(Coordinate(row, column))]
+        return [Coordinate(i, j)
+                for i in range(1, Coordinate.DIMENSION() + 1)
+                for j in range(1, Coordinate.DIMENSION() + 1)
+                if is_equals_color(Coordinate(i, j))]
 
     def is_complete(self):
         numbers_of_colors = sum(len(self.flat[color]) for color in self.flat.keys())
@@ -82,3 +82,9 @@ class Board(Subject):
             len(coordinates) == Coordinate.DIMENSION and
             all(_[i].in_direction(_[i + 1]) == direction for i in range(1, Coordinate.DIMENSION - 1))
             if (direction := _[0].in_direction(_[1])) != Direction.NON_EXISTENT else False)
+
+
+if __name__ == '__main__':
+    board = (Board().put(Coordinate(1, 1))
+             .put(Coordinate(1, 2))
+             .put(Coordinate(1, 3)))

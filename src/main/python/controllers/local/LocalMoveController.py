@@ -1,8 +1,8 @@
 from python.controllers.local.LocalCoordinateController import LocalCoordinateController
 from python.controllers.local.LocalPlacementController import LocalPlacementController
 from python.controllers.local.errors.ErrorGeneratorType import ErrorGeneratorType
-from python.models.coordinate import Coordinate
-from python.models.game import Game
+from python.models.Coordinate import Coordinate
+from python.models.Game import Game
 
 
 class LocalMoveController(LocalPlacementController):
@@ -11,18 +11,18 @@ class LocalMoveController(LocalPlacementController):
         super().__init__(game, local_coordinate_controller)
         self.origin = None
 
+    def remove(self, origin: Coordinate):
+        assert origin is not None
+        assert self.validate_target(origin) is not None
+        self.origin = origin
+        super().remove(origin)
+
     def put(self, target):
         assert target is not None
         assert self.origin is not None
         assert self.validate_target_(self.origin, target) is not None
         super().put(target)
         self.origin = None
-
-    def remove(self, origin: Coordinate):
-        assert origin is not None
-        assert self.validate_target(origin) is not None
-        self.origin = origin
-        super().remove(origin)
 
     def validate_target(self, origin):
         assert origin is not None
@@ -33,9 +33,9 @@ class LocalMoveController(LocalPlacementController):
     def validate_target_(self, origin, target):
         assert origin is not None
         assert target is not None
-        errorReports = super().validate_target(target)
-        if errorReports is not None:
-            return errorReports
+        error_reports = super().validate_target(target)
+        if error_reports is not None:
+            return error_reports
         if origin == target:
             return ErrorGeneratorType.REPEATED_COORDINATE.value.get_error_report(self.game)
         return None

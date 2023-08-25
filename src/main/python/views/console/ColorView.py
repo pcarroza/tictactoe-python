@@ -1,4 +1,4 @@
-from python.models.color import Color
+from python.models.Color import Color
 from python.utils.Terminal import Terminal
 
 
@@ -26,4 +26,3 @@ class ColorView:
 
     def to_char(self, color: Color):
         return self.__COLORS[color]
-

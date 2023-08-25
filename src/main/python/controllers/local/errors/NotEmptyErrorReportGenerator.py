@@ -1,4 +1,8 @@
+from python.controllers.local.errors.NotEmptyErrorReport import NotEmptyErrorReport
+
+
 class NotEmptyErrorReportGenerator:
 
-    def get_error_report(self, game):
-        pass
+    @classmethod
+    def get_error_report(cls, game):
+        return NotEmptyErrorReport(game.get_empty_coordinate())

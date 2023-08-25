@@ -1,7 +1,7 @@
 from python.controllers.local.LocalCoordinateController import LocalCoordinateController
 from python.controllers.local.LocalOperationController import LocalOperationController
 from python.controllers.local.errors.ErrorGeneratorType import ErrorGeneratorType
-from python.models.game import Game
+from python.models.Game import Game
 
 
 class LocalPlacementController(LocalOperationController):
@@ -16,4 +16,4 @@ class LocalPlacementController(LocalOperationController):
         return None
 
     def getCoordinateController(self):
-        pass
+        return self.__local_coordinate_controller

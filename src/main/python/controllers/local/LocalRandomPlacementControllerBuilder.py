@@ -1,16 +1,16 @@
 from python.controllers.local.LocalPlacementControllerBuilder import LocalPlacementControllerBuilder
 from python.controllers.local.LocalRandomCoordinateController import LocalRandomCoordinateController
-from python.models.game import Game
+from python.models.Game import Game
 
 
-class LocalRandomCoordinateControllerBuilder(LocalPlacementControllerBuilder):
+class LocalRandomPlacementControllerBuilder(LocalPlacementControllerBuilder):
 
     def __init__(self, game: Game):
         super().__init__(game)
 
     def build(self):
-        local_random_coordinate_controllers = [
+        controllers = [
             LocalRandomCoordinateController(self.game),
             LocalRandomCoordinateController(self.game)
         ]
-        self.__build(local_random_coordinate_controllers)
+        self.__build(controllers)

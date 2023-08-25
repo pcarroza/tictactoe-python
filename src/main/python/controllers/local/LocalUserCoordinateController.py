@@ -1,8 +1,7 @@
-from http import cookiejar
-
+from python.controllers.CoordinateControllerVisitor import CoordinateControllerVisitor
 from python.controllers.local.LocalCoordinateController import LocalCoordinateController
-from python.models.coordinate import Coordinate
-from python.models.game import Game
+from python.models.Coordinate import Coordinate
+from python.models.Game import Game
 
 
 class LocalUserCoordinateController(LocalCoordinateController):
@@ -16,5 +15,5 @@ class LocalUserCoordinateController(LocalCoordinateController):
     def get_origin(self):
         return Coordinate()
 
-    def accept(self, coordinate_controller_visitor):
-        coordinate_controller_visitor.visit(self)
+    def accept(self, visitor: CoordinateControllerVisitor):
+        visitor.visit_user_coordinate_controller(self)

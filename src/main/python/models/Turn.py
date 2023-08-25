@@ -1,4 +1,4 @@
-from src.main.python.models.color import Color
+from src.main.python.models.Color import Color
 
 
 class Turn:

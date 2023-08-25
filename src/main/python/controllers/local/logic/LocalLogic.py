@@ -1,8 +1,8 @@
-from python.controllers.local.logic.State import State
 from src.main.python.controllers.local.LocalOperationControllerBuilder import LocalOperationControllerBuilder
 from src.main.python.controllers.local.logic.StateBuilder import StateBuilder
-from src.main.python.models.observer import Observer
-from src.main.python.models.game import Game
+from python.controllers.local.logic.State import State
+from src.main.python.models.Observer import Observer
+from src.main.python.models.Game import Game
 from src.main.python.Logic import Logic
 
 
