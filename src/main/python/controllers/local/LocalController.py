@@ -12,7 +12,7 @@ class LocalController:
         return self.__game
 
     def number_of_max_players(self):
-        return self.__game.NUMBER_MAX_OF_PLAYERS
+        return self.__game.NUMBER_OF_PLAYERS
 
     def get_color(self, coordinate: Coordinate):
         return self.__game.get_color(coordinate)
@@ -37,6 +37,12 @@ class LocalController:
 
     def exist_tictactoe(self):
         return self.__game.exist_tictactoe()
+
+    def get_player_coordinates(self):
+        return self.__game.get_player_coordinates()
+
+    def get_empty_coordinates(self):
+        return self.__game.get_empty_coordinates()
 
     def is_complete(self):
         self.__game.is_complete()

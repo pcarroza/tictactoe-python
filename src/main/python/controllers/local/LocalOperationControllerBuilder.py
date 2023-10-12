@@ -2,7 +2,7 @@ from python.controllers.local.LocalRandomPlacementControllerBuilder import Local
 from python.controllers.local.LocalUserPlacementControllerBuilder import LocalUserPlacementControllerBuilder
 from python.controllers.local.LocalContinueController import LocalContinueController
 from python.controllers.local.LocalStartController import LocalStartController
-from python.utils.closed_interval import ClosedInterval
+from python.utils.ClosedInterval import ClosedInterval
 
 
 class LocalOperationControllerBuilder:

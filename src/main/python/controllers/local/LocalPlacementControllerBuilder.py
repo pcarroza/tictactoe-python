@@ -17,7 +17,7 @@ class LocalPlacementControllerBuilder:
     def build(self):
         pass
 
-    def __build(self, controllers):
+    def _build_(self, controllers):
         assert self.controllers is not None
         assert all(controller is not None for controller in self.controllers)
         self.controllers = [

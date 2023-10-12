@@ -13,4 +13,3 @@ class TicTacToe:
         while controller is not None:
             self.__view.interact(controller)
             controller = self.__logic.get_controller()
-

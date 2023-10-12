@@ -13,24 +13,24 @@ class LocalMoveController(LocalPlacementController):
 
     def remove(self, origin: Coordinate):
         assert origin is not None
-        assert self.validate_target(origin) is not None
+        assert self.validate_origin(origin) is not None
         self.origin = origin
         super().remove(origin)
 
-    def put(self, target):
-        assert target is not None
-        assert self.origin is not None
-        assert self.validate_target_(self.origin, target) is not None
-        super().put(target)
-        self.origin = None
-
-    def validate_target(self, origin):
+    def validate_origin(self, origin):
         assert origin is not None
         if not self.is_occupied_by_current_player(origin):
             return ErrorGeneratorType.NOT_PROPERTY.value.get_error_report(self.game)
         return None
 
-    def validate_target_(self, origin, target):
+    def put(self, target):
+        assert target is not None
+        assert self.origin is not None
+        assert self.__validate_target(self.origin, target) is not None
+        super().put(target)
+        self.origin = None
+
+    def __validate_target(self, origin, target):
         assert origin is not None
         assert target is not None
         error_reports = super().validate_target(target)

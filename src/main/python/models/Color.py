@@ -8,4 +8,4 @@ class Color(Enum):
 
     @classmethod
     def colors(cls):
-        return list([Color.OS, Color.XS])
+        return list([Color.OS.value, Color.XS.value])

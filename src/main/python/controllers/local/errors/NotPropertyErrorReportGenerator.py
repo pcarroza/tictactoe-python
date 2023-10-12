@@ -5,4 +5,4 @@ class NotPropertyErrorReportGenerator:
 
     @classmethod
     def get_error_report(cls, game):
-        return NotPropertyErrorReport(game.get_player_coordinate())
+        return NotPropertyErrorReport(game.get_player_coordinates())

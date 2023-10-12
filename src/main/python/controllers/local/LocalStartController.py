@@ -1,4 +1,4 @@
-from python.utils.closed_interval import ClosedInterval
+from python.utils.ClosedInterval import ClosedInterval
 from src.main.python.controllers.OperationControllerVisitor import OperationControllerVisitor
 from src.main.python.controllers.local.LocalOperationController import LocalOperationController
 
@@ -16,3 +16,5 @@ class LocalStartController(LocalOperationController):
 
     def accept(self, visitor: OperationControllerVisitor):
         visitor.visit(self)
+
+

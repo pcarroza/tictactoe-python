@@ -1,4 +1,5 @@
 class LimitedIntDialog:
+    
     __instance = None
 
     @classmethod
@@ -6,8 +7,8 @@ class LimitedIntDialog:
         if cls.__instance is not None:
             pass
 
-    def read(self, title, min, max):
+    def read(self, title, minimum, maximum):
         pass
 
-    def read_(self, title, min):
+    def read_(self, title, minimum):
         pass

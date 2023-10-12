@@ -13,4 +13,4 @@ class LocalUserPlacementControllerBuilder(LocalPlacementControllerBuilder):
             LocalUserCoordinateController(self.game),
             LocalUserCoordinateController(self.game)
         ]
-        self.__build(controllers)
+        self._build_(controllers)

@@ -1,6 +1,4 @@
-
 class Terminal:
-
     __instance = None
 
     @classmethod
@@ -43,7 +41,6 @@ class Terminal:
                 ok = True
         return response
 
-
     @classmethod
     def write(cls, title):
         print(title)
@@ -54,7 +51,6 @@ class Terminal:
 
 
 if __name__ == '__main__':
-
     color = Terminal.instance().read_char("Ingrese valor: ")
 
     print(color)
